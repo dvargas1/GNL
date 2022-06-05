@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/05 20:35:53 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/05 20:57:57 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@
  * buffer precisamos guardar a informação depois dele para ser utilizada, para isso podemos usar uma
  * variavel do tipo Static
  * ----------------------------
- * Fazemos StrJoin de ReadBuffer(RESULTADO DE READ) para um StringBuffer 
+ * Fazemos StrJoin de ReadBuffer(RESULTADO DE READ) para um static StringBuffer 
  * Procuramos um /n no StringBuffer (podemos usar strchr)
- * NÃO -> faça strjoin para Se leia novamente -> encontrou o /n agora?
- * SIM -> strjoin de tudo antes do /n e tudo que esta depois continua na variavel statica a leitura continua
- * ate encontrarmos o proximo /n.
+ *		SIM -> Monte a linha em uma string de retorno lembrar de delimitar por /n
+ *		Depois disso Stringbuffer precisa ser malocada com o novo conteúdo (tudo depois de /n)
+ *	Leia um Buffer_size novamente
  * ----------------------------
  * Questões que me vem a cabeça
  * Se o buffer tiver mais do que um /n? criamos uma regra especifica pra isso?
+ * R: Sim, podeoms fazer isso dentro da montagem de linha por exemplo.
  *
  *
  * Lembrar -
