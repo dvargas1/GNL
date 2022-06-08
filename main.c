@@ -8,7 +8,7 @@ int main(void)
 	int	fd;
 
 	fd = open("myfile.txt", O_RDONLY);
-
+/*
 	while(1)
 	{
 		temp = get_next_line(fd);
@@ -18,4 +18,8 @@ int main(void)
 		free(temp);
 	}
 	return (0);
+*/
+
+	printf("%s", get_next_line(fd));
 }
+

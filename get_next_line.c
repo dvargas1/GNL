@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/08 02:14:39 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/08 19:13:57 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
-	stringbuffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
+	if (!stringbuffer)
+		stringbuffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
 	readed = read(fd, stringbuffer, BUFFER_SIZE);
 	stringbuffer[readed] = '\0';
 	nposition = lf_count(stringbuffer, 2);
@@ -106,13 +106,13 @@ char	*get_next_line(int fd)
 		else
 		{
 			string = ft_substr(stringbuffer, 0, ft_strlen(stringbuffer));
-			free (stringbuffer);
 		}
 		if (*string == 0 && readed == 0)
 			return (NULL);
 		return (string);
 }
-
+// preciso colocar um while para repetir a leitura de Read
+// erro no read é -1
 /*
  *GET NEXT LINE
  * O objetivo dessa função é imprimir o conteúdo de um arquivo de texto linha por linha com auxilio da funcao
