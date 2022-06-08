@@ -6,9 +6,112 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/05 20:57:57 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/08 02:14:39 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
+#include <stdio.h>
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (src[i] && i < (size - 1))
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (ft_strlen(src));
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+	size_t	j;
+
+	if (!s)
+		return (NULL);
+	if ((ft_strlen(s) + start) < len)
+		len = ft_strlen(s) + start;
+	substr = malloc(sizeof(*s) * len + 1);
+	if (!substr)
+		return (NULL);
+	i = 0;
+	while (i < start)
+		i++;
+	j = 0;
+	while (j < len)
+	{
+		substr[j] = s[i];
+		i++;
+		j++;
+	}
+	substr[j] = '\0';
+	return (substr);
+}
+
+int lf_count (char *str, int flag)
+{
+	int position = 0;
+	int lfcount = 0;
+
+	while (str[position])
+	{
+		if (str[position] == '\n')
+			lfcount++;
+		break;
+		position++;
+	}
+	if (flag == 1)
+		return (lfcount);
+	else if (flag == 2)
+		return (position);
+	return (0);
+}
+
+char	*get_next_line(int fd)
+{
+	char	*string;
+	static char	*stringbuffer;
+	int	nposition;
+	ssize_t readed;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+
+	stringbuffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
+	readed = read(fd, stringbuffer, BUFFER_SIZE);
+	stringbuffer[readed] = '\0';
+	nposition = lf_count(stringbuffer, 2);
+		if(lf_count(stringbuffer, 1) > 0)
+		{
+			string = ft_substr(stringbuffer, 0 , nposition);
+		}
+		else
+		{
+			string = ft_substr(stringbuffer, 0, ft_strlen(stringbuffer));
+			free (stringbuffer);
+		}
+		if (*string == 0 && readed == 0)
+			return (NULL);
+		return (string);
+}
 
 /*
  *GET NEXT LINE
