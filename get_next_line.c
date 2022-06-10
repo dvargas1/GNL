@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/10 01:45:23 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/10 01:55:22 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char	*get_next_line(int fd)
 	if(lf_count(stringbuffer, 1) > 0)
 	{
 		string = ft_substr(stringbuffer, 0 , nposition);
+		// criar uma função que de strjoin no restante do stringbuffer;
 	}
 	else
 	{
