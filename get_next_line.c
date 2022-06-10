@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/08 19:13:57 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/10 01:45:23 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,25 @@ char	*get_next_line(int fd)
 	if (!stringbuffer)
 		stringbuffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
 	readed = read(fd, stringbuffer, BUFFER_SIZE);
-	stringbuffer[readed] = '\0';
+	while (readed)
+	{
+		stringbuffer[readed] = '\0';
+		if (lf_count(stringbuffer, 1) > 0)
+			break;
+		readed = read(fd, stringbuffer, BUFFER_SIZE);
+	}
 	nposition = lf_count(stringbuffer, 2);
-		if(lf_count(stringbuffer, 1) > 0)
-		{
-			string = ft_substr(stringbuffer, 0 , nposition);
-		}
-		else
-		{
-			string = ft_substr(stringbuffer, 0, ft_strlen(stringbuffer));
-		}
-		if (*string == 0 && readed == 0)
-			return (NULL);
-		return (string);
+	if(lf_count(stringbuffer, 1) > 0)
+	{
+		string = ft_substr(stringbuffer, 0 , nposition);
+	}
+	else
+	{
+		string = ft_substr(stringbuffer, 0, ft_strlen(stringbuffer));
+	}
+	if (*string == 0 && readed == 0)
+		return (NULL);
+	return (string);
 }
 // preciso colocar um while para repetir a leitura de Read
 // erro no read é -1

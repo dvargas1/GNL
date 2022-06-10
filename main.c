@@ -4,7 +4,7 @@
 
 int main(void)
 {
-	char	*temp;
+//	char	*temp;
 	int	fd;
 
 	fd = open("myfile.txt", O_RDONLY);
