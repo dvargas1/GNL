@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/11 01:04:52 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/11 01:35:31 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(char *str)
 {
 	size_t	i;
 
+	if(!str)
+		return(0);
 	i = 0;
 	while (str[i])
 		i++;
@@ -98,6 +100,8 @@ int lf_count (char *str, int flag)
 	int position = 0;
 	int lfcount = 0;
 
+	if (!str)
+		return(-1);
 	while (str[position])
 	{
 		if (str[position] == '\n')
@@ -113,17 +117,19 @@ int lf_count (char *str, int flag)
 		return (position);
 	return (0);
 }
-char	*ft_strchr(char *str, int c)
+int	ft_strchr(char *str, int c)
 {
 	size_t	i;
 	char	*s;
 
 	s = (char *) str;
 	i = 0;
+	if (!str)
+		return (-1);
 	while (i <= ft_strlen(str))
 	{
 		if (s[i] == (char) c)
-			return(&s[i]);
+			return(1);
 		i++;
 	}
 	return(0);
@@ -161,14 +167,12 @@ char	*get_next_line(int fd)
 {
 	char	*string;
 	char	*buffer;
-	static char	*stringbuffer;
+	static char	*stringbuffer[1024] = {0};
 	int	nposition;
 	ssize_t bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || !BUFFER_SIZE)
 		return (NULL);
-	if (!stringbuffer)
-		stringbuffer = calloc(1,1);
 	bytes_read = 1;
 	while (bytes_read)
 	{
@@ -180,22 +184,22 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
-		stringbuffer = ft_strjoin(stringbuffer, buffer);
-		if (ft_strchr(stringbuffer, '\n'))
+		stringbuffer[fd] = ft_strjoin(stringbuffer[fd], buffer);
+		if (ft_strchr(stringbuffer[fd], '\n'))
 			break;
 	}
 	//free(buffer);
-	nposition = lf_count(stringbuffer, 2);
-	if(lf_count(stringbuffer, 1) > 0)
+	nposition = lf_count(stringbuffer[fd], 2);
+	if(lf_count(stringbuffer[fd], 1) > 0)
 	{
-		string = ft_substr(stringbuffer, 0 , nposition+1);
-		stringbuffer = ft_substr2(stringbuffer, nposition+1, ft_strlen(stringbuffer) - nposition);
+		string = ft_substr(stringbuffer[fd], 0 , nposition+1);
+		stringbuffer[fd] = ft_substr2(stringbuffer[fd], nposition+1, ft_strlen(stringbuffer[fd]) - nposition);
 	}
 	else
 	{
-		string = ft_substr(stringbuffer, 0, ft_strlen(stringbuffer));
-		free(stringbuffer);
-		stringbuffer = NULL;
+		string = ft_substr(stringbuffer[fd], 0, ft_strlen(stringbuffer[fd]));
+		free(stringbuffer[fd]);
+		stringbuffer[fd] = NULL;
 	}
 	if (ft_strlen(string) == 0)
 	{
