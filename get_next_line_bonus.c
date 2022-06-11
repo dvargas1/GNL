@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/11 01:35:31 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/11 16:27:27 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	substr[j] = '\0';
 	return (substr);
 }
+
 char	*ft_substr2(char *s, unsigned int start, size_t len)
 {
 	char	*substr;
