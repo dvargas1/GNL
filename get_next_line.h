@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:01:12 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/08 19:02:58 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/10 19:43:55 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int	lf_count(char *str, int flag);
 #endif
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 3
+# define BUFFER_SIZE 1
 #endif
