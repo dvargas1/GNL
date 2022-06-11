@@ -6,7 +6,11 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/10 01:55:22 by dvargas          ###   ########.fr       */
+=======
+/*   Updated: 2022/06/08 19:13:57 by dvargas          ###   ########.fr       */
+>>>>>>> parent of 605618a (New implement of GNL)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,38 +88,82 @@ int lf_count (char *str, int flag)
 		return (position);
 	return (0);
 }
+char	*ft_strchr(const char *str, int c)
+{
+	size_t	i;
+	char	*s;
+
+	s = (char *) str;
+	i = 0;
+	while (i <= ft_strlen(str))
+	{
+		if (s[i] == (char) c)
+			return(&s[i]);
+		i++;
+	}
+	return(0);
+}
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*newstr;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	newstr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!newstr)
+		return (NULL);
+	while (s1[i])
+	{
+		newstr[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		newstr[i + j] = s2[j];
+		j++;
+	}
+	newstr[i + j] = '\0';
+	return (newstr);
+}
 
 char	*get_next_line(int fd)
 {
 	char	*string;
+	char	*buffer;
 	static char	*stringbuffer;
 	int	nposition;
-	ssize_t readed;
+	ssize_t bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stringbuffer)
-		stringbuffer = malloc (sizeof(char) * (BUFFER_SIZE + 1));
-	readed = read(fd, stringbuffer, BUFFER_SIZE);
-	while (readed)
+		stringbuffer = malloc(1);
+	buffer = malloc(sizeof(char) * BUFFER_SIZE +1);
+	bytes_read = 1;
+	while (bytes_read)
 	{
-		stringbuffer[readed] = '\0';
-		if (lf_count(stringbuffer, 1) > 0)
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		buffer[bytes_read] = '\0';
+		stringbuffer = ft_strjoin(stringbuffer, buffer);
+		if (ft_strchr(stringbuffer, '\n'))
 			break;
-		readed = read(fd, stringbuffer, BUFFER_SIZE);
 	}
+	free(buffer);
 	nposition = lf_count(stringbuffer, 2);
 	if(lf_count(stringbuffer, 1) > 0)
 	{
-		string = ft_substr(stringbuffer, 0 , nposition);
-		// criar uma função que de strjoin no restante do stringbuffer;
+		string = ft_substr(stringbuffer, 0 , nposition+1);
+		stringbuffer = ft_substr(stringbuffer, nposition+1, ft_strlen(stringbuffer) - nposition);
 	}
 	else
 	{
 		string = ft_substr(stringbuffer, 0, ft_strlen(stringbuffer));
+		free(stringbuffer);
 	}
-	if (*string == 0 && readed == 0)
-		return (NULL);
 	return (string);
 }
 // preciso colocar um while para repetir a leitura de Read
