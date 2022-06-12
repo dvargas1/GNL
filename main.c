@@ -6,7 +6,6 @@ int main(void)
 {
 //	char	*temp;
 	int	fd;
-	char	*s1;
 
 	fd = open("myfile.txt", O_RDONLY);
 /*
@@ -20,9 +19,15 @@ int main(void)
 	}
 	return (0);
 */
-	s1 = get_next_line(fd);
-	printf("1 - %s", s1);
-	free(s1);
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
+	printf("1 - %s", get_next_line(fd));
 	close(fd);
 }
 

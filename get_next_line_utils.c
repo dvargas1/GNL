@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 02:07:19 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/11 18:40:50 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/12 11:46:58 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,25 +94,18 @@ char	*ft_substr2(char *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-int	lf_count(char *str, int flag)
+int	lf_count(char *str)
 {
 	int	position;
-	int	count;
 
 	position = 0;
-	count = 0;
 	while (str[position])
 	{
 		if (str[position] == '\n')
 		{
-			count++;
-			break ;
+			return(position);
 		}
 		position++;
 	}
-	if (flag == 1)
-		return (count);
-	else if (flag == 2)
-		return (position);
-	return (0);
+	return (-1);
 }

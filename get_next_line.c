@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/11 19:09:40 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/12 12:10:27 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,38 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	newstr[i + j] = '\0';
 	free(s1);
-	free(s2);
 	return (newstr);
+}
+char	*beautiful(char **sbuffer)
+{
+	char *string;
+	int npos;
+
+	npos = lf_count(*sbuffer);
+	if (npos != -1)
+	{
+		string = ft_substr(*sbuffer, 0, npos + 1);
+		*sbuffer = ft_substr2(*sbuffer, npos + 1,
+			ft_strlen(*sbuffer) - (npos + 1));
+	}
+	else
+	{
+		string = ft_substr(*sbuffer, 0, ft_strlen(*sbuffer));
+		free(*sbuffer);
+		*sbuffer = NULL;
+	}
+	if (ft_strlen(string) == 0)
+	{
+		free(string);
+		return (NULL);
+	}
+	return (string);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*string;
 	char		*buffer;
 	static char	*sbuffer;
-	int			npos;
 	ssize_t		bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
@@ -71,9 +93,11 @@ char	*get_next_line(int fd)
 	if (!sbuffer)
 		sbuffer = calloc(1, 1);
 	bytes_read = 1;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (bytes_read)
 	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (ft_strchr(sbuffer, '\n'))
+			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
@@ -82,27 +106,9 @@ char	*get_next_line(int fd)
 		}
 		buffer[bytes_read] = '\0';
 		sbuffer = ft_strjoin(sbuffer, buffer);
-		if (ft_strchr(sbuffer, '\n'))
-			break ;
 	}
-	npos = lf_count(sbuffer, 2);
-	if (lf_count(sbuffer, 1) > 0)
-	{
-		string = ft_substr(sbuffer, 0, npos + 1);
-		sbuffer = ft_substr2(sbuffer, npos + 1, ft_strlen(sbuffer) - npos);
-	}
-	else
-	{
-		string = ft_substr(sbuffer, 0, ft_strlen(sbuffer));
-		free(sbuffer);
-		sbuffer = NULL;
-	}
-	if (ft_strlen(string) == 0)
-	{
-		free(string);
-		return (NULL);
-	}
-	return (string);
+	free(buffer);
+	return (beautiful(&sbuffer));
 }
 // erro no read é -1
 /*
