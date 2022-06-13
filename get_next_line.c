@@ -6,12 +6,11 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/12 12:10:27 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/13 01:01:18 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_strchr(char *str, int c)
 {
@@ -82,6 +81,15 @@ char	*beautiful(char **sbuffer)
 	return (string);
 }
 
+char	*empty(char *sbuffer)
+{
+	sbuffer = malloc(sizeof(char));
+	if (!sbuffer)
+		return(NULL);
+	sbuffer[0] = 0;
+	return (sbuffer);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buffer;
@@ -91,7 +99,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	if (!sbuffer)
-		sbuffer = calloc(1, 1);
+		sbuffer = empty(sbuffer);
 	bytes_read = 1;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (bytes_read)
