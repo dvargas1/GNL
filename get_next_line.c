@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/14 16:12:22 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/14 16:31:38 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*create(char *sbuffer, int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (bytes_read)
 	{
-		if (ft_strchr(sbuffer, '\n'))
+		if (lf_count(sbuffer) > 1)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
