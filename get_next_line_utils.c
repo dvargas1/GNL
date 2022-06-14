@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 02:07:19 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/12 11:46:58 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/14 16:13:11 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_strlen(char *str)
 {
 	int	i;
+
 	if (!str)
 		return (0);
 	i = 0;
@@ -103,7 +104,7 @@ int	lf_count(char *str)
 	{
 		if (str[position] == '\n')
 		{
-			return(position);
+			return (position);
 		}
 		position++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/13 01:01:18 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/14 16:12:22 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,18 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	return (newstr);
 }
+
 char	*beautiful(char **sbuffer)
 {
-	char *string;
-	int npos;
+	char	*string;
+	int		npos;
 
 	npos = lf_count(*sbuffer);
 	if (npos != -1)
 	{
 		string = ft_substr(*sbuffer, 0, npos + 1);
 		*sbuffer = ft_substr2(*sbuffer, npos + 1,
-			ft_strlen(*sbuffer) - (npos + 1));
+				ft_strlen(*sbuffer) - (npos + 1));
 	}
 	else
 	{
@@ -81,25 +82,11 @@ char	*beautiful(char **sbuffer)
 	return (string);
 }
 
-char	*empty(char *sbuffer)
+char	*create(char *sbuffer, int fd)
 {
-	sbuffer = malloc(sizeof(char));
-	if (!sbuffer)
-		return(NULL);
-	sbuffer[0] = 0;
-	return (sbuffer);
-}
+	char	*buffer;
+	ssize_t	bytes_read;
 
-char	*get_next_line(int fd)
-{
-	char		*buffer;
-	static char	*sbuffer;
-	ssize_t		bytes_read;
-
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (NULL);
-	if (!sbuffer)
-		sbuffer = empty(sbuffer);
 	bytes_read = 1;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (bytes_read)
@@ -108,16 +95,31 @@ char	*get_next_line(int fd)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-		{
-			free(buffer);
-			return (NULL);
-		}
+			break ;
 		buffer[bytes_read] = '\0';
 		sbuffer = ft_strjoin(sbuffer, buffer);
 	}
 	free(buffer);
+	return (sbuffer);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*sbuffer;
+
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (NULL);
+	if (!sbuffer)
+	{
+		sbuffer = malloc(sizeof(char));
+		if (!sbuffer)
+			return (NULL);
+		sbuffer[0] = 0;
+	}
+	sbuffer = create(sbuffer, fd);
 	return (beautiful(&sbuffer));
 }
+
 // erro no read é -1
 /*
  *GET NEXT LINE
