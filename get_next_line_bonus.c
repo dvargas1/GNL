@@ -6,7 +6,7 @@
 /*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/15 01:57:12 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/18 15:08:17 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	if(!sbuffer[fd])
+	if (!sbuffer[fd])
 		sbuffer[fd] = callmeloc(sbuffer[fd]);
 	bytes_read = 1;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
