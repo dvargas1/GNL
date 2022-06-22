@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 02:07:19 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/14 16:13:11 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:12:32 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ int	ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	if (size == 0)
-		return (ft_strlen(src));
-	while (src[i] && i < (size - 1))
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (ft_strlen(src));
 }
 
 char	*ft_substr(char *s, unsigned int start, size_t len)

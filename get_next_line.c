@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/18 15:07:44 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:08:49 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strchr(char *str, int c)
-{
-	int		i;
-	char	*s;
-
-	s = (char *) str;
-	i = 0;
-	while (i <= ft_strlen(str))
-	{
-		if (s[i] == (char) c)
-			return (&s[i]);
-		i++;
-	}
-	return (0);
-}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -91,7 +75,7 @@ char	*create(char *sbuffer, int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (bytes_read)
 	{
-		if (lf_count(sbuffer) > 1)
+		if (lf_count(sbuffer) > -1)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)

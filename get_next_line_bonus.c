@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvargas <dvarags@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 20:35:51 by dvargas           #+#    #+#             */
-/*   Updated: 2022/06/18 15:08:17 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:08:23 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-char	*ft_strchr(char *str, int c)
-{
-	int		i;
-	char	*s;
-
-	s = (char *) str;
-	i = 0;
-	while (i <= ft_strlen(str))
-	{
-		if (s[i] == (char) c)
-			return (&s[i]);
-		i++;
-	}
-	return (0);
-}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -97,7 +81,7 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	static char	*sbuffer[4096];
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < -1)
 		return (NULL);
 	if (!sbuffer[fd])
 		sbuffer[fd] = callmeloc(sbuffer[fd]);
